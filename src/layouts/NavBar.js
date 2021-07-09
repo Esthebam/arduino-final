@@ -7,7 +7,6 @@ const NavBar = (props) => {
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const mailUsuarioActual = JSON.parse(localStorage.getItem('user')).email;
 
     const handleClose = () => {
         localStorage.removeItem('user');
@@ -33,7 +32,7 @@ const NavBar = (props) => {
                     {auth && (
                     <div>
                         <Typography variant="h6" className={classes.userInfo}>
-                            {mailUsuarioActual}
+                            {props.currentUser}
                         </Typography>
                         <IconButton
                         aria-label="account of current user"
