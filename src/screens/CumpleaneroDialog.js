@@ -10,8 +10,6 @@ import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 
 const CumpleaneroDialog = (props) => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
     const localeMap = {
         es: esLocale,
         en: enLocale
@@ -62,26 +60,12 @@ const CumpleaneroDialog = (props) => {
                             autoComplete='off'
                         />
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextValidator
-                                variant="outlined"
-                                margin="normal"
-                                fullWidth
-                                label="Edad"
-                                onChange={props.changeEdad}
-                                name="edad"
-                                value={props.edad}
-                                validators={['required']}
-                                errorMessages={['Este campo es requerido']}
-                                autoComplete='off'
-                            />
-                        </Grid>
                         {(() => {
                             if(props.formmode) {
                                 return (
                                     <Grid item xs={6}>
                                         <MuiPickersUtilsProvider locale={localeMap[locale]} utils={DateFnsUtils}>
-                                            <DatePicker value={new Date()} onChange={props.changeFecha} />
+                                            <DatePicker value={props.fechaActual} onChange={props.changeFechaActual} />
                                         </MuiPickersUtilsProvider>
                                     </Grid>
                                 )

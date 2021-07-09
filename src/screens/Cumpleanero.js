@@ -7,6 +7,8 @@ import {ScaleLoader} from 'react-spinners';
 import {ToastContainer, toast} from 'react-toastify';
 import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
+import io from 'socket.io-client';
+import { url } from '../config';
 
 const Cumpleanero = () => {
     const classes  = useStyles();
@@ -19,7 +21,9 @@ const Cumpleanero = () => {
     const [apellido, setApellido] = useState('');
     const [edad, setEdad] =  useState();
     const [fecha, setFecha] = useState('');
+    const [fechaActual, setFechaActual] = useState(new Date());
     const [fechaCalendar, setFechaCalendar] = useState();
+    const [user, setUser] = useState('');
     const override =`
         display: flex;
         align-items: center;
@@ -38,15 +42,35 @@ const Cumpleanero = () => {
     const handleEdad = (event) => {
         setEdad(event.target.value);
     }
-    const handleFecha = (date) => {
-        console.log('Hola');
+
+    const formatearFecha = (date) => {
         let dd = String(date.getDate()).padStart(2, '0');
         let mm = String(date.getMonth() + 1).padStart(2, '0');
         let yyyy = date.getFullYear();
         let res = dd + '/' + mm + '/' + yyyy;
-        console.log(res);
+        return res;
+    }
+    const stringToDate= (date) => {
+        let fecha = date;
+        let fechaSplit = fecha.split("/");
+        let fechaDateObject = new Date(+fechaSplit[2], fechaSplit[1] - 1, +fechaSplit[0]); 
+        return fechaDateObject;
+    }
+    const getYears = (d1, d2) => {
+        let years = d2.getFullYear() - d1.getFullYear();
+        let months = d2.getMonth() - d1.getMonth();
+        if (months < 0 || (months === 0 && d2.getDate() < d1.getDate())) {
+            years--;
+        }
+        return years;
+    }
+    const handleFecha = (date) => {
+        let res = formatearFecha(date);
         setFecha(res);
         setFechaCalendar(date);
+    }
+    const handleFechaActual = (date) => {
+        setFechaActual(date);
     }
     const getlist = async () => { 
         try {
@@ -64,15 +88,11 @@ const Cumpleanero = () => {
                 setFormMode(false);
                 setCustId(id);
                 const response = await getCumpleanero(id);
-                console.log(response);
                  setNombre(response.nombre);
                  setApellido(response.apellido);
                  setEdad(response.edad);
                  setFecha(response.fecha);
-                 let fecha = response.fecha;
-                 let fechaSplit = fecha.split("/");
-                 let fechaDateObject = new Date(+fechaSplit[2], fechaSplit[1] - 1, +fechaSplit[0]); 
-                 setFechaCalendar(fechaDateObject)
+                 setFechaCalendar(stringToDate(response.fecha));
                  setOpen(true);
             } catch (error) {
                 toast.error(error.message);
@@ -103,9 +123,14 @@ const Cumpleanero = () => {
                      nombre,
                      apellido,
                      edad,
-                     fecha
+                     fecha,
+                     user
                  }
+                const mailUsuarioActual = JSON.parse(localStorage.getItem('user')).email;
+                cumpleanero.user = mailUsuarioActual;
                 if (formMode) {
+                    cumpleanero.fecha = formatearFecha(fechaActual);
+                    cumpleanero.edad = getYears(stringToDate(cumpleanero.fecha), new Date());
                     await addCumpleanero(cumpleanero);
                     toast.success('¡Cumpleañero añadido con exito!');
                     getlist();
@@ -114,7 +139,9 @@ const Cumpleanero = () => {
                     setApellido('');
                     setEdad();
                     setFecha('');
+                    setFechaActual();
                 }else {
+                    cumpleanero.edad = getYears(stringToDate(fecha), new Date());
                     await updateCumpleanero(custId, cumpleanero);
                     toast.success('¡Cumpleañero actualizado con exito!');
                     getlist();
@@ -127,6 +154,15 @@ const Cumpleanero = () => {
             } catch (error) {
                 toast.error(error.message);
             }
+    }
+
+    const socket = io.connect(url);
+
+    const pruebaArduino = () => {
+        socket.emit('led:on');
+    }
+    const pruebaArduino2 = () => {
+        socket.emit('led:off');
     }
 
     useEffect(() => {
@@ -151,6 +187,18 @@ const Cumpleanero = () => {
                         className={classes.button}
                         startIcon={<AddCircle/>}
                     >Agregar</Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={pruebaArduino}
+                        className={classes.button}
+                    >Mandar notis</Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={pruebaArduino2}
+                        className={classes.button}
+                    >Mandar notis off</Button>
                     </Grid>
                 </Grid>
                 <Table className={classes.table}>
@@ -207,6 +255,8 @@ const Cumpleanero = () => {
                 apellido={apellido}
                 edad={edad}
                 fecha={fechaCalendar}
+                fechaActual={fechaActual}
+                changeFechaActual={handleFechaActual}
                 changeNombre={handleNombre}
                 changeApellido={handleApellido}
                 changeEdad={handleEdad}

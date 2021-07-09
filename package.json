@@ -11,20 +11,32 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "date-fns": "^2.22.1",
+    "express": "^4.15.3",
     "firebase": "^8.7.1",
+    "johnny-five": "^2.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-material-ui-form-validator": "^2.1.4",
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
     "react-toastify": "^7.0.4",
+    "socket.io": "^2.0.2",
+    "socket.io-client": "^2.0.2",
     "web-vitals": "^1.1.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.4.0",
+    "css-loader": "^0.28.4",
+    "rimraf": "^2.6.1",
+    "style-loader": "^0.18.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "node server.js",
+    "arduino:dev": "concurrently --kill-others \"npm run dev\" \"node arduino.js\""
   },
   "eslintConfig": {
     "extends": [
