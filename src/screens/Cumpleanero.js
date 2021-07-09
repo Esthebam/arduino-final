@@ -10,7 +10,7 @@ import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
 import { url } from '../config';
 
-const Cumpleanero = () => {
+const Cumpleanero = (props) => {
     const classes  = useStyles();
     const [cumpleaneros, setCumpleaneros] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -126,8 +126,7 @@ const Cumpleanero = () => {
                      fecha,
                      user
                  }
-                const mailUsuarioActual = JSON.parse(localStorage.getItem('user')).email;
-                cumpleanero.user = mailUsuarioActual;
+                cumpleanero.user = props.currentUser;
                 if (formMode) {
                     cumpleanero.fecha = formatearFecha(fechaActual);
                     cumpleanero.edad = getYears(stringToDate(cumpleanero.fecha), new Date());
@@ -187,7 +186,7 @@ const Cumpleanero = () => {
                         className={classes.button}
                         startIcon={<AddCircle/>}
                     >Agregar</Button>
-                      <Button
+                                     <Button
                         variant="contained"
                         color="primary"
                         onClick={pruebaArduino}

@@ -6,22 +6,26 @@ const firestore = firebase.firestore();
 
 export const getCumpleaneros = async () => {
     try {
-        const mailUsuarioActual = JSON.parse(localStorage.getItem('user')).email;
-        const response = await firestore.collection('cumpleaneros').where("user", "==", mailUsuarioActual);
-        const data = await response.get();
-        let array = [];
-        data.forEach(c => {
-            const cumpleanero = new Cumpleanero(
-                c.id,
-                c.data().nombre,
-                c.data().apellido,
-                c.data().edad,
-                c.data().fecha
-            );
+        const usuarioActual = localStorage.getItem('user');
+        let mailUsuarioActual;
+        if (usuarioActual != null) {
+            mailUsuarioActual = JSON.parse(usuarioActual).email;
+            const response = await firestore.collection('cumpleaneros').where("user", "==", mailUsuarioActual);
+            const data = await response.get();
+            let array = [];
+            data.forEach(c => {
+                const cumpleanero = new Cumpleanero(
+                    c.id,
+                    c.data().nombre,
+                    c.data().apellido,
+                    c.data().edad,
+                    c.data().fecha
+                );
 
-            array.push(cumpleanero);
-        });
-        return array;
+                array.push(cumpleanero);
+            });
+            return array;
+        }
     } catch (error) {
         throw error;
     }

@@ -25,7 +25,7 @@ function App() {
       {user !== null ? (
         <>
         <NavBar setUserState={() => setUser(null)} currentUser={user.email}/>
-        <Cumpleanero/>
+        <Cumpleanero currentUser={user.email}/>
         </>
       ) : (
          <>
