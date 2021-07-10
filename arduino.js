@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 });
 
 // Connect to the socket server
-const socket = ioClient.connect('/');
+const socket = ioClient.connect();
 
 const board = new five.Board();
 
