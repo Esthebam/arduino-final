@@ -154,7 +154,7 @@ const Cumpleanero = (props) => {
             }
     }
 
-    const socket = io.connect('https://agile-taiga-96267.herokuapp.com/arduino');
+    const socket = io.connect('/');
 
     const arduino = () => {
         socket.emit('led:on');
