@@ -5,7 +5,7 @@ const development = {
   };
   
   const production = {
-    host: 'https://agile-taiga-96267.herokuapp.com/', // Replace
+    host: 'https://agile-taiga-96267.herokuapp.com', // Replace
     namespace: 'arduino' // For socket.io
   };
   
