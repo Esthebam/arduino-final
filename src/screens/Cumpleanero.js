@@ -154,6 +154,16 @@ const Cumpleanero = (props) => {
             }
     }
 
+    const socket = io.connect('/');
+
+    const arduino = () => {
+        socket.emit('led:on');
+    }
+    const arduino2 = () => {
+        socket.emit('led:off');
+    }
+    
+
     useEffect(() => {
         getlist();
     }, []);
@@ -177,6 +187,26 @@ const Cumpleanero = (props) => {
                             startIcon={<AddCircle/>}
                         >
                             Agregar
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={arduino}
+                            className={classes.button}
+                        >
+                            Prender
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={arduino2}
+                            className={classes.button}
+                        >
+                            Apagar
                         </Button>
                     </Grid>
                 </Grid>
