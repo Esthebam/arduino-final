@@ -8,7 +8,7 @@ const server = app.listen(process.env.PORT || port, function() {
 
 const io = require('socket.io')(server);
 
-io.of('/').on('connection', (socket) => {
+io.of('https://agile-taiga-96267.herokuapp.com').on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
