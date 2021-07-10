@@ -1,4 +1,4 @@
-import io from 'socket.io-client';
+const io = require('socket.io-client');
 const five = require('johnny-five');
 
 // Connect to the socket server
