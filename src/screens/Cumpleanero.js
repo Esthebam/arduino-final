@@ -8,7 +8,6 @@ import {ToastContainer, toast} from 'react-toastify';
 import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
-import { url } from '../config';
 
 const Cumpleanero = (props) => {
     const classes  = useStyles();
@@ -155,7 +154,7 @@ const Cumpleanero = (props) => {
             }
     }
 
-    const socket = io.connect(url);
+    const socket = io.connect('http://localhost:4000');
 
     const arduino = () => {
         socket.emit('led:on');

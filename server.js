@@ -1,23 +1,22 @@
 const express = require('express');
-const config = require('./src/config');
 const path = require('path');
 const app = express();
-//const port = 4000; 
+//const port = process.env.PORT || 4000;
+const port = 4000;
 
 app.use(express.static(path.resolve(__dirname, 'build')));
 
-//app.get('*', (req, res) => {
-//  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
-//});
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
 
-const server = app.listen(process.env.PORT || config.port, function() {
-  let port = process.env.PORT || config.port;
-  console.log('Socket server listening at: ' + port);
+const server = app.listen(port, () => {
+  console.info(`Server listening on port ${port}`);
 });
 
 const io = require('socket.io')(server);
 
-io.of('/arduino').on('connection', (socket) => {
+io.on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 

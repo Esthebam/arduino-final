@@ -22,13 +22,11 @@
     "socket.io-client": "^2.0.2"
   },
   "scripts": {
-    "start": "NODE_ENV=production concurrently --kill-others \"npm run start:dev\" \"node server.js\" \"node arduino.js\" ",
-    "start:dev": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "NODE_ENV=development node server.js",
-    "arduino:dev" :"NODE_ENV=development concurrently --kill-others \"npm run dev\" \"node arduino.js\""
+    "arduino:dev" :"concurrently --kill-others \"node server.js\" \"node arduino.js\""
   },
   "eslintConfig": {
     "extends": [
