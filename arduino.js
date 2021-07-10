@@ -1,4 +1,4 @@
-const io = require('socket.io-client');
+const ioClient = require('socket.io-client');
 const five = require('johnny-five');const express = require('express');
 const path = require('path');
 const app = express();
@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
 });
 
 // Connect to the socket server
-const socket = io.connect('/');
+const socket = ioClient.connect('/');
 
 const board = new five.Board();
 
