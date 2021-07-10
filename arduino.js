@@ -1,7 +1,7 @@
 const io = require('socket.io-client');
 const five = require('johnny-five');
 // Connect to the socket server
-const socket = io.connect('hola');
+const socket = io.connect('https://agile-taiga-96267.herokuapp.com');
 
 const board = new five.Board();
 
