@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.use(express.static(path.resolve(__dirname, 'build')));
 
@@ -15,7 +15,7 @@ const server = app.listen(port, () => {
 
 const io = require('socket.io')(server);
 
-io.of('/').on('connection', (socket) => {
+io.of('/arduino').on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
