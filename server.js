@@ -15,7 +15,7 @@ const server = app.listen(port, () => {
 
 const io = require('socket.io')(server);
 
-io.of('/').on('connection', (socket) => {
+io.on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
