@@ -1,9 +1,7 @@
 const io = require('socket.io-client');
 const five = require('johnny-five');
-const config = require('./src/config');
-
 // Connect to the socket server
-const socket = io.connect(config.url);
+const socket = io.connect('hola');
 
 const board = new five.Board();
 

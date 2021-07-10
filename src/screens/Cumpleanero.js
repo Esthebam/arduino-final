@@ -186,7 +186,7 @@ const Cumpleanero = (props) => {
                         className={classes.button}
                         startIcon={<AddCircle/>}
                     >Agregar</Button>
-                                     <Button
+                                                        <Button
                         variant="contained"
                         color="primary"
                         onClick={pruebaArduino}
@@ -198,7 +198,7 @@ const Cumpleanero = (props) => {
                         onClick={pruebaArduino2}
                         className={classes.button}
                     >Mandar notis off</Button>
-                    </Grid>
+                                        </Grid>
                 </Grid>
                 <Table className={classes.table}>
                     <TableHead>

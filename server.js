@@ -1,15 +1,14 @@
 const express = require('express');
-const config = require('./src/config');
 const app = express();
+const port = 3000;
 
-const server = app.listen(config.port, function() {
-  let port = config.port;
+const server = app.listen(process.env.PORT || port, function() {
   console.log('Socket server listening at: ' + port);
 });
 
 const io = require('socket.io')(server);
 
-io.of('/arduino').on('connection', (socket) => {
+io.of('/').on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
