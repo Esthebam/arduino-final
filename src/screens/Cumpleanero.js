@@ -8,7 +8,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
-import { Board } from 'johnny-five';
+import {five} from 'johnny-five';
 
 const Cumpleanero = (props) => {
     const classes  = useStyles();
@@ -164,7 +164,7 @@ const Cumpleanero = (props) => {
         socket.emit('led:off');
     }
 
-    const board = new Board();
+    const board = new five.Board();
 
     board.on('ready', function() {
 
