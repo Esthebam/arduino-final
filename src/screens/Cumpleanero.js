@@ -154,7 +154,7 @@ const Cumpleanero = (props) => {
             }
     }
 
-    const socket = io.connect('http://localhost:4000');
+    const socket = io.connect('/');
 
     const arduino = () => {
         socket.emit('led:on');

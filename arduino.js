@@ -2,7 +2,7 @@ const io = require('socket.io-client');
 const five = require('johnny-five');
 
 // Connect to the socket server
-const socket = io.connect('http://localhost:4000');
+const socket = io.connect('/');
 
 const board = new five.Board();
 
