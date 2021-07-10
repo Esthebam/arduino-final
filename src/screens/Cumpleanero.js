@@ -154,15 +154,6 @@ const Cumpleanero = (props) => {
             }
     }
 
-    const socket = io.connect('https://agile-taiga-96267.herokuapp.com');
-
-    const pruebaArduino = () => {
-        socket.emit('led:on');
-    }
-    const pruebaArduino2 = () => {
-        socket.emit('led:off');
-    }
-
     useEffect(() => {
         getlist();
     }, []);
@@ -178,26 +169,16 @@ const Cumpleanero = (props) => {
                     </Typography>
                     </Grid>
                     <Grid item xs={4}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleAdd}
-                        className={classes.button}
-                        startIcon={<AddCircle/>}
-                    >Agregar</Button>
-                                                        <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={pruebaArduino}
-                        className={classes.button}
-                    >Mandar notis</Button>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={pruebaArduino2}
-                        className={classes.button}
-                    >Mandar notis off</Button>
-                                        </Grid>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleAdd}
+                            className={classes.button}
+                            startIcon={<AddCircle/>}
+                        >
+                            Agregar
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Table className={classes.table}>
                     <TableHead>
