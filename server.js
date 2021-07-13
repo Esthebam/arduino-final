@@ -19,8 +19,8 @@ io.on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
-  socket.on('led:on', function() {
-    socket.broadcast.emit('led:on');
+  socket.on('led:on', data => {
+    socket.broadcast.emit('led:on', data);
     console.log('Broadcasting: led:on');
   });
 

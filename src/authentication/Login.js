@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {Container, CssBaseline, Avatar, Typography, 
-    Button, Checkbox, Grid, Link, makeStyles, Card, CardContent} from '@material-ui/core';
+    Button, Grid, Link, makeStyles, Card, CardContent} from '@material-ui/core';
 import {LockRounded} from '@material-ui/icons';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import fire from '../helpers/db';

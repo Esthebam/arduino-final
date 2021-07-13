@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {Dialog, DialogActions, DialogContent, DialogTitle, Button,
-    Grid, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio} from '@material-ui/core';
+import {Dialog, DialogActions, DialogContent, DialogTitle, Button, Grid} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 
 import enLocale from "date-fns/locale/en-US";
@@ -41,8 +40,8 @@ const CumpleaneroDialog = (props) => {
                             onChange={props.changeNombre}
                             name="nombre"
                             value={props.nombre}
-                            validators={['required']}
-                            errorMessages={['Este campo es requerido']}
+                            validators={['required', 'maxStringLength:7']}
+                            errorMessages={['Este campo es requerido', 'Máximo 7 caracteres']}
                             autoComplete='off'
                         />
                         </Grid>
@@ -55,8 +54,8 @@ const CumpleaneroDialog = (props) => {
                             onChange={props.changeApellido}
                             name="apellido"
                             value={props.apellido}
-                            validators={['required']}
-                            errorMessages={['Este campo es requerido']}
+                            validators={['required', 'maxStringLength:7']}
+                            errorMessages={['Este campo es requerido', 'Máximo 7 caracteres']}
                             autoComplete='off'
                         />
                         </Grid>

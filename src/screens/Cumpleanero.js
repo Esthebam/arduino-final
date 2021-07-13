@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {Table, TableBody, TableCell, TableRow, TableHead,
     TableContainer, Paper, makeStyles, Container,
-    Typography, Button, Grid, IconButton} from '@material-ui/core';
-import {AddCircle, Edit, Delete} from '@material-ui/icons';
+    Typography, Button, Grid, IconButton, getLuminance} from '@material-ui/core';
+import {AddCircle, Edit, Delete, DateRange} from '@material-ui/icons';
 import {ScaleLoader} from 'react-spinners';
 import {ToastContainer, toast} from 'react-toastify';
-import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero} from '../data/cumpleaneroData';
+import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero, getCumpleanerosToday} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
+import { secondsInMinute } from 'date-fns';
 
 const Cumpleanero = (props) => {
     const classes  = useStyles();
     const [cumpleaneros, setCumpleaneros] = useState([]);
+    const [cumpleanosToday, setCumpleanosToday] = useState([]);
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const [formMode, setFormMode] = useState(true);
@@ -82,6 +84,12 @@ const Cumpleanero = (props) => {
             setLoading(false);
         }
     }
+    const getlistToday = async () => { 
+        let date = formatearFecha(new Date());
+        let filterDate = date.substring(0, date.length -5);
+        let cumpToday = await getCumpleaneros();
+        setCumpleanosToday (cumpToday.filter(c => c.fecha.includes(filterDate)));
+    }
     const editCumpleanero = async (id) => {
             try {
                 setFormMode(false);
@@ -102,6 +110,7 @@ const Cumpleanero = (props) => {
             try {
                 await deleteCumpleanero(id);
                 getlist();
+                getlistToday();
                 toast.success('¡Cumpleañero eliminado con exito!');
             } catch (error) {
                 toast.error(error.message);
@@ -138,6 +147,7 @@ const Cumpleanero = (props) => {
                     setEdad();
                     setFecha('');
                     setFechaActual();
+                    setCumpleanosToday(getlistToday());
                 }else {
                     cumpleanero.edad = getYears(stringToDate(fecha), new Date());
                     await updateCumpleanero(custId, cumpleanero);
@@ -148,25 +158,42 @@ const Cumpleanero = (props) => {
                     setApellido('');
                     setEdad();
                     setFecha('');
+                    setCumpleanosToday(getlistToday());
                 }
             } catch (error) {
                 toast.error(error.message);
             }
+
     }
 
-    const socket = io.connect('/');
-
-    const arduino = () => {
-        socket.emit('led:on');
-    }
-    const arduino2 = () => {
-        socket.emit('led:off');
-    }
     
+    
+
+    const delay = async (ms) => new Promise(res => setTimeout(res, ms));
+
+    const sendNotification = async () => {
+        const socket = io.connect('http://localhost:4000');
+        console.log(cumpleanosToday);
+        if (cumpleanosToday.length > 0) {
+            console.log('Hola');
+            for (let c of cumpleanosToday) {
+                socket.emit('led:on', c);
+                await delay(5000);
+            }
+            await delay(1000);
+            socket.emit('led:off');
+        }
+    }
 
     useEffect(() => {
         getlist();
+        getlistToday();
     }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {sendNotification()}, 30000);
+        return () => clearInterval(interval);   
+    }, [cumpleanosToday]);
 
     return (
         <Container className={classes.container}>
@@ -193,21 +220,13 @@ const Cumpleanero = (props) => {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={arduino}
+                            onClick={sendNotification}
                             className={classes.button}
                         >
                             Prender
                         </Button>
                     </Grid>
                     <Grid item xs={4}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={arduino2}
-                            className={classes.button}
-                        >
-                            Apagar
-                        </Button>
                     </Grid>
                 </Grid>
                 <Table className={classes.table}>
