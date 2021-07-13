@@ -19,14 +19,14 @@ io.on('connection', (socket) => {
 
   console.log('New connection: ' + socket.id);
 
-  socket.on('led:on', data => {
-    socket.broadcast.emit('led:on', data);
-    console.log('Broadcasting: led:on');
+  socket.on('notification:on', data => {
+    socket.broadcast.emit('notification:on', data);
+    console.log('Broadcasting: notification:on');
   });
 
-  socket.on('led:off', function() {
-    socket.broadcast.emit('led:off');
-    console.log('Broadcasting: led:off');
+  socket.on('notification:off', function() {
+    socket.broadcast.emit('notification:off');
+    console.log('Broadcasting: notification:off');
   });
 
 });

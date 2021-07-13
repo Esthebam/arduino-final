@@ -16,13 +16,16 @@ const SignUp = (props) => {
     
     const handleEmail = (event) => {
         setEmail(event.target.value);
-    }
+    };
+
     const handlePassword = (event) => {
         setPassword(event.target.value);
-    }
+    };
+
     const handleConfirmPassowerd = (event) => {
         setConfirmPassword(event.target.value);
-    }
+    };
+
     const handleSignUp = () => {
         fire.auth()
             .createUserWithEmailAndPassword(email, password)
@@ -44,7 +47,7 @@ const SignUp = (props) => {
                         break;
                 }
             });
-    }
+    };
 
     useEffect(() => {
         ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
@@ -55,8 +58,8 @@ const SignUp = (props) => {
         });
         return () => {
             ValidatorForm.removeValidationRule('isPasswordMatch');
-        }
-    }, [password])
+        };
+    }, [password]);
 
     return (
         <Container component="main" maxWidth="xs">

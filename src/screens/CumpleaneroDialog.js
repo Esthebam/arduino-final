@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Dialog, DialogActions, DialogContent, DialogTitle, Button, Grid} from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
-
 import enLocale from "date-fns/locale/en-US";
 import esLocale from "date-fns/locale/es";
 import {MuiPickersUtilsProvider, DatePicker} from "@material-ui/pickers";
@@ -16,7 +15,6 @@ const CumpleaneroDialog = (props) => {
 
     const [locale, setLocale] = useState("es");
     
-
     return (
         <Dialog
         fullWidth={true}

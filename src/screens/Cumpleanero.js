@@ -8,7 +8,6 @@ import {ToastContainer, toast} from 'react-toastify';
 import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero, getCumpleanerosToday} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
-import { secondsInMinute } from 'date-fns';
 
 const Cumpleanero = (props) => {
     const classes  = useStyles();
@@ -33,16 +32,19 @@ const Cumpleanero = (props) => {
     `;
     const handleClose = () => {
         setOpen(false);
-    }
+    };
+
     const handleNombre = (event) => {
         setNombre(event.target.value);
-    }
+    };
+
     const handleApellido = (event) => {
         setApellido(event.target.value);
-    }
+    };
+
     const handleEdad = (event) => {
         setEdad(event.target.value);
-    }
+    };
 
     const formatearFecha = (date) => {
         let dd = String(date.getDate()).padStart(2, '0');
@@ -50,13 +52,15 @@ const Cumpleanero = (props) => {
         let yyyy = date.getFullYear();
         let res = dd + '/' + mm + '/' + yyyy;
         return res;
-    }
+    };
+
     const stringToDate= (date) => {
         let fecha = date;
         let fechaSplit = fecha.split("/");
         let fechaDateObject = new Date(+fechaSplit[2], fechaSplit[1] - 1, +fechaSplit[0]); 
         return fechaDateObject;
-    }
+    };
+
     const getYears = (d1, d2) => {
         let years = d2.getFullYear() - d1.getFullYear();
         let months = d2.getMonth() - d1.getMonth();
@@ -64,15 +68,18 @@ const Cumpleanero = (props) => {
             years--;
         }
         return years;
-    }
+    };
+
     const handleFecha = (date) => {
         let res = formatearFecha(date);
         setFecha(res);
         setFechaCalendar(date);
-    }
+    };
+
     const handleFechaActual = (date) => {
         setFechaActual(date);
-    }
+    };
+
     const getlist = async () => { 
         try {
             setLoading(true);
@@ -83,13 +90,15 @@ const Cumpleanero = (props) => {
             toast.error(error.message);
             setLoading(false);
         }
-    }
+    };
+
     const getlistToday = async () => { 
         let date = formatearFecha(new Date());
         let filterDate = date.substring(0, date.length -5);
         let cumpToday = await getCumpleaneros();
         setCumpleanosToday (cumpToday.filter(c => c.fecha.includes(filterDate)));
-    }
+    };
+
     const editCumpleanero = async (id) => {
             try {
                 setFormMode(false);
@@ -105,7 +114,8 @@ const Cumpleanero = (props) => {
                 toast.error(error.message);
             }
 
-    }
+    };
+
     const deleteHandler = async (id) => {
             try {
                 await deleteCumpleanero(id);
@@ -115,7 +125,8 @@ const Cumpleanero = (props) => {
             } catch (error) {
                 toast.error(error.message);
             }
-    }
+    };
+
     const handleAdd = () => {
             setOpen(true);
             setFormMode(true);
@@ -123,7 +134,7 @@ const Cumpleanero = (props) => {
             setApellido('');
             setEdad();
             setFecha('');
-    }
+    };
 
     const addCumpleaneroHandler = async () => {
             try {
@@ -164,26 +175,21 @@ const Cumpleanero = (props) => {
                 toast.error(error.message);
             }
 
-    }
-
-    
-    
+    };
 
     const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
     const sendNotification = async () => {
         const socket = io.connect('http://localhost:4000');
-        console.log(cumpleanosToday);
         if (cumpleanosToday.length > 0) {
-            console.log('Hola');
             for (let c of cumpleanosToday) {
-                socket.emit('led:on', c);
+                socket.emit('notification:on', c);
                 await delay(5000);
             }
             await delay(1000);
-            socket.emit('led:off');
+            socket.emit('notification:off');
         }
-    }
+    };
 
     useEffect(() => {
         getlist();

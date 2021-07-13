@@ -12,11 +12,11 @@ const NavBar = (props) => {
         localStorage.removeItem('user');
         props.setUserState();
         setAnchorEl(null);
-    }
+    };
 
     const handleCloseMenu = () => {
         setAnchorEl(null);
-    }
+    };
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);

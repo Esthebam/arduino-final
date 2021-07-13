@@ -29,7 +29,7 @@ export const getCumpleaneros = async () => {
     } catch (error) {
         throw error;
     }
-}
+};
 
 export const addCumpleanero = async (cumpleanero) => {
     try {
@@ -37,7 +37,7 @@ export const addCumpleanero = async (cumpleanero) => {
     } catch (error) {
         throw error;
     }
-}
+};
 
 export const getCumpleanero = async (id) => {
     try {
@@ -47,7 +47,7 @@ export const getCumpleanero = async (id) => {
     } catch (error) {
         throw error;
     }
-}
+};
 
 export const updateCumpleanero = async (id, data) => {
     try {
@@ -56,7 +56,7 @@ export const updateCumpleanero = async (id, data) => {
     } catch (error) {
         throw error;
     }
-}
+};
 
 export const deleteCumpleanero = async (id) => {
     try {
@@ -64,4 +64,4 @@ export const deleteCumpleanero = async (id) => {
     } catch (error) {
         throw error;
     }
-}
+};

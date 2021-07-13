@@ -13,6 +13,7 @@ board.on('ready', function() {
     rows: 2,
     cols: 20
   });
+
   const piezo = new five.Piezo(3);
   const rgb = new five.Led.RGB([6, 5, 4]);
   let index = 0;
@@ -20,12 +21,11 @@ board.on('ready', function() {
 
   lcd.useChar("check");
 
-  socket.on('led:on', data => {
+  socket.on('notification:on', data => {
     
       lcd.on();
       lcd.clear().print(`Hoy cumple ${data.edad}:`);
       lcd.cursor(1, 0);
-    
       lcd.print(`${data.nombre} ${data.apellido} :check:`);
 
       piezo.play({
@@ -40,16 +40,12 @@ board.on('ready', function() {
           index = 0;
         }
       }
-
-      console.log(data);
   });
 
-
-  socket.on('led:off', function(){
+  socket.on('notification:off', function(){
     piezo.off();
     rgb.off();
     lcd.off();
-    
   });
 
 });
