@@ -223,16 +223,6 @@ const Cumpleanero = (props) => {
                         </Button>
                     </Grid>
                     <Grid item xs={4}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={sendNotification}
-                            className={classes.button}
-                        >
-                            Prender
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
                     </Grid>
                 </Grid>
                 <Table className={classes.table}>
