@@ -4,10 +4,9 @@ const development = {
   };
   
   const production = {
-    url: 'https://agile-taiga-96267.herokuapp.com'
+    url: 'https://agile-taiga-96267.herokuapp.com' // Reemplazar
   };
   
   const config = process.env.NODE_ENV === 'development' ? development : production;
-  config.url = url;
-  
+
   module.exports = config;

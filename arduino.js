@@ -1,6 +1,6 @@
 const io = require('socket.io-client');
 const five = require('johnny-five');
-const config = require('./config');
+const config = require('./src/config/config');
 
 const socket = io.connect(config.url);
 

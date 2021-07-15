@@ -8,7 +8,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import {getCumpleaneros, addCumpleanero, getCumpleanero, updateCumpleanero, deleteCumpleanero, getCumpleanerosToday} from '../data/cumpleaneroData';
 import CustomerDialog from './CumpleaneroDialog';
 import io from 'socket.io-client';
-import { url } from '../config';
+import config from '../config/config';
 
 const Cumpleanero = (props) => {
     const classes  = useStyles();
@@ -181,7 +181,7 @@ const Cumpleanero = (props) => {
     const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
     const sendNotification = async () => {
-        const socket = io.connect(url);
+        const socket = io.connect(config.url);
         if (cumpleanosToday.length > 0) {
             for (let c of cumpleanosToday) {
                 socket.emit('notification:on', c);
@@ -199,7 +199,7 @@ const Cumpleanero = (props) => {
 
     useEffect(() => {
         const interval = setInterval(() => {sendNotification()}, 30000);
-        return () => clearInterval(interval);   
+        return () => clearInterval(interval);
     }, [cumpleanosToday]);
 
     return (
