@@ -4,7 +4,7 @@ const development = {
   };
   
   const production = {
-    url: 'https://agile-taiga-96267.herokuapp.com' // Reemplazar
+    url: 'https://serene-crag-90446.herokuapp.com' // Reemplazar
   };
   
   const config = process.env.NODE_ENV === 'development' ? development : production;
