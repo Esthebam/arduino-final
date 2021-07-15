@@ -17,7 +17,7 @@ El Arduino debe tener instalado Standard Firmata y estar conectado.
 
 ## Diagrama
 
-![Diagrama.](https://raw.githubusercontent.com/Esthebam/arduino-final/master/diagrama.png?token=AHO6LL66O32U22HIHQQVLX3A7DDEO)
+![Diagrama.](https://raw.githubusercontent.com/Esthebam/arduino-final/master/src/assets/diagrama.png?token=AHO6LL6ELNYGM7ITGT6TQKLA7DEPW)
 
 ## Instalación
 
