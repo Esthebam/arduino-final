@@ -4,7 +4,7 @@ El presente proyecto muestra una implementación de un recordador de cumpleaños
 
 ## Requisitos
 
-El Arduino debe tener instalado Standard Firmata.
+El Arduino debe tener instalado Standard Firmata y estar conectado.
 
 ## Lista de componentes
 
