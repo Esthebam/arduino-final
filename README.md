@@ -28,3 +28,7 @@ Ejecutar `npm run dev` para iniciar la aplicación corriendo en modo desarrollo
 Ejecutar `npm run arduino:dev` para iniciar la aplicación en modo desarrollo junto con el archivo arduino.js conectándose de forma local.
 
 Ejecutar `npm run arduino` para iniciar la aplicación en modo producción junto con el archivo arduino.js conectándose al servidor indicado en el archivo config.js. Es necesario que la aplicación se encuentre deployada.
+
+## Aplicación
+
+La aplicación se encuentra deployada en https://agile-taiga-96267.herokuapp.com/
