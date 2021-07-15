@@ -31,4 +31,4 @@ Ejecutar `npm run arduino` para iniciar la aplicación en modo producción junto
 
 ## Aplicación
 
-La aplicación se encuentra deployada en https://serene-crag-90446.herokuapp.com/
+La aplicación se encuentra deployada en: https://serene-crag-90446.herokuapp.com/
